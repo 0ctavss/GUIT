@@ -7,6 +7,7 @@
 class Client {
 public:
     Client(const std::string& repo_name);
+
     void init();
     void add(const std::vector<std::string>& files, bool add_all);
     void commit(const std::string& message);
@@ -14,8 +15,8 @@ public:
 
 private:
     std::string repo_name;
-    std::string ignore_file;
     std::vector<std::string> staged_files;
+    std::string ignore_file;
 
     void loadIgnoreFile();
     bool isIgnored(const std::string& file);

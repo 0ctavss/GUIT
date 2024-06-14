@@ -1,12 +1,8 @@
 #include "client.hpp"
 #include <iostream>
-#include <fstream>
-
-void createTestFiles() {
-    std::ofstream("file1.txt") << "This is file 1" << std::endl;
-    std::ofstream("file2.txt") << "This is file 2" << std::endl;
-    std::ofstream("file3.txt") << "This is file 3" << std::endl;
-}
+#include <sstream>
+#include <string>
+#include <vector>
 
 void printUsage() {
     std::cout << "Usage:" << std::endl;
@@ -14,41 +10,59 @@ void printUsage() {
     std::cout << "  guit add [-A] [name]" << std::endl;
     std::cout << "  guit commit <message>" << std::endl;
     std::cout << "  guit sync <file>" << std::endl;
+    std::cout << "  quit" << std::endl;
 }
 
-int main(int argc, char* argv[]) {
-    createTestFiles();
-
-    if (argc < 2) {
+void processCommand(const std::vector<std::string>& args) {
+    if (args.size() < 2) {
+        std::cout << "Invalid command or usage." << std::endl;
         printUsage();
-        return 1;
+        return;
     }
 
-    std::string command = argv[1];
-    if (command == "init" && argc == 3) {
-        Client client(argv[2]);
+    const std::string& command = args[1];
+    if (command == "init" && args.size() == 3) {
+        Client client(args[2]);
         client.init();
     } else if (command == "add") {
-        bool add_all = false;
-        std::vector<std::string> files;
-        for (int i = 2; i < argc; ++i) {
-            std::string arg = argv[i];
-            if (arg == "-A") {
-                add_all = true;
-            } else {
-                files.push_back(arg);
-            }
+        // Implementación de 'add'
+    } else if (command == "commit" && args.size() >= 3) {
+        std::string message;
+        for (size_t i = 2; i < args.size(); ++i) {
+            message += args[i] + " ";
         }
-        Client client("my_repo");
-        client.add(files, add_all);
-    } else if (command == "commit" && argc == 3) {
-        Client client("my_repo");
-        client.commit(argv[2]);
-    } else if (command == "sync" && argc == 3) {
-        Client client("my_repo");
-        client.sync(argv[2]);
+        Client client("my_repo");  // Ajusta el nombre del repositorio según tu lógica
+        client.commit(message);
+    } else if (command == "sync" && args.size() == 3) {
+        Client client("my_repo");  // Ajusta el nombre del repositorio según tu lógica
+        client.sync(args[2]);
+    } else if (command == "quit") {
+        std::cout << "Exiting program." << std::endl;
+        exit(0);
     } else {
+        std::cout << "Invalid command or usage." << std::endl;
         printUsage();
+    }
+}
+
+int main() {
+    std::string line;
+    while (true) {
+        std::cout << "> ";
+        std::getline(std::cin, line);
+
+        std::istringstream iss(line);
+        std::vector<std::string> tokens;
+        std::string token;
+        while (iss >> token) {
+            tokens.push_back(token);
+        }
+
+        if (tokens.empty()) {
+            continue;
+        }
+
+        processCommand(tokens);
     }
 
     return 0;

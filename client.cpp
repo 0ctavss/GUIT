@@ -9,9 +9,9 @@
 Client::Client(const std::string& repo_name) : repo_name(repo_name), ignore_file(".guitignore") {}
 
 void Client::init() {
-    // Create necessary files and directories
+    // Crear archivos y directorios necesarios
     std::ofstream(ignore_file).close();
-    Server::getInstance().initRepo(repo_name);
+    Server::getInstance().initRepo(repo_name); // Llama a la función de inicialización en el servidor
 }
 
 void Client::add(const std::vector<std::string>& files, bool add_all) {
@@ -40,19 +40,19 @@ void Client::commit(const std::string& message) {
 
 void Client::sync(const std::string& file) {
     auto changes = Server::getInstance().getChanges(repo_name, file);
-    // Logic to handle merging of changes
+    // Lógica para manejar la fusión de cambios
 }
 
 void Client::loadIgnoreFile() {
-    // Load .guitignore and store ignored files
+    // Cargar .guitignore y almacenar archivos ignorados
     std::ifstream infile(ignore_file);
     std::string line;
     while (std::getline(infile, line)) {
-        // Logic to handle ignored files
+        // Lógica para manejar archivos ignorados
     }
 }
 
 bool Client::isIgnored(const std::string& file) {
-    // Check if the file is in the ignored list
-    return false;
+    // Verificar si el archivo está en la lista de ignorados
+    return false; // Placeholder
 }
