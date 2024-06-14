@@ -6,6 +6,8 @@
 #include <ctime>
 #include <filesystem>
 
+namespace fs = std::filesystem;
+
 Server::Server() {}
 
 Server& Server::getInstance() {
@@ -14,8 +16,27 @@ Server& Server::getInstance() {
 }
 
 void Server::initRepo(const std::string& name) {
-    repos[name] = std::vector<std::string>();
-    std::cout << "Initialized repository: " << name << std::endl;
+    std::string base_path = "C:\\Users\\camf\\Desktop\\DatosII\\GUIT\\Commits";
+
+    // Combinar el path base con el nombre del repositorio
+    fs::path repo_path = base_path + "\\" + name;
+
+    // Verificar si el directorio ya existe
+    if (fs::exists(repo_path)) {
+        std::cerr << "El repositorio '" << name << "' ya existe en " << base_path << std::endl;
+        return;
+    }
+
+    // Crear el directorio del repositorio
+    try {
+        fs::create_directories(repo_path);
+        std::cout << "Initialized repository: " << name << " at " << repo_path << std::endl;
+    } catch (const std::exception& e) {
+        std::cerr << "Error al inicializar el repositorio '" << name << "': " << e.what() << std::endl;
+    }
+
+    // Limpiar la lista de archivos en el repositorio
+    repos[name].clear();
 }
 
 std::string Server::commitFiles(const std::string& repo_name, const std::vector<std::string>& files, const std::string& message) {
@@ -40,11 +61,11 @@ std::string Server::generateCommitID() {
 
 void Server::saveCommit(const std::string& repo_name, const std::vector<std::string>& files, const std::string& commit_id) {
     std::string commit_path = getCommitPath(repo_name, commit_id);
-    std::filesystem::create_directories(commit_path);
+    fs::create_directories(commit_path);
 
     for (const auto& file : files) {
         std::ifstream src(file, std::ios::binary);
-        std::ofstream dst(commit_path + "\\" + std::filesystem::path(file).filename().string(), std::ios::binary);
+        std::ofstream dst(commit_path + "\\" + fs::path(file).filename().string(), std::ios::binary);
         dst << src.rdbuf();
     }
 
