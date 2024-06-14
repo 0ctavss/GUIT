@@ -1,0 +1,6 @@
+# ninja log v6
+19	631	7400770379156900	CMakeFiles/untitled.dir/main.cpp.obj	799786c2d955669f
+6	294	7400790962395085	build.ninja	1e6c1d56fe365283
+1762	2117	7400730269156521	untitled.exe	6c2f8604cf40e100
+29	1515	7400770379250908	CMakeFiles/untitled.dir/client.cpp.obj	1ea1cad9126cb673
+24	1666	7400770379195328	CMakeFiles/untitled.dir/server.cpp.obj	7947226a0901536a
