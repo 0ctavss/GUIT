@@ -6,6 +6,25 @@
 #include <fstream>
 #include <filesystem>
 namespace fs = std::filesystem;
+std::vector<std::string> pendingFiles;
+
+void loadPendingFiles() {
+    std::ifstream inFile(".pending");
+    if (!inFile.is_open()) return;
+
+    std::string line;
+    while (std::getline(inFile, line)) {
+        pendingFiles.push_back(line);
+    }
+    inFile.close();
+}
+void savePendingFiles() {
+    std::ofstream outFile(".pending");
+    for (const auto& file : pendingFiles) {
+        outFile << file << "\n";
+    }
+    outFile.close();
+}
 
 void resetFile(const std::string& filename)  //Aqui filename es el nombre del archivo que se quiere resetear
     //Lee el archivo en el último commit
@@ -213,33 +232,16 @@ void processCommand(const std::vector<std::string>& args) {
         pendingFiles.clear();
         savePendingFiles();
     } else if (command == "sync" && args.size() == 3) {
-        ServerConnector::getInstance()->syncFile(args[2]);
+        //ServerConnector::getInstance()->syncFile(args[2]);
     } else if (command == "quit") {
         std::cout << "Exiting program." << std::endl;
         exit(0);
     } else if (command == "rollback" && args.size() >= 3) {
-        ServerConnector::getInstance()->rollbackFile(args[2], args[3]);
+        //ServerConnector::getInstance()->rollbackFile(args[2], args[3]);
     } else {
         std::cout << "Invalid command or usage." << std::endl;
         std::cout << "  guit help: Muestra esta lista de comandos.\n";
     }
-}
-void loadPendingFiles() {
-    std::ifstream inFile(".pending");
-    if (!inFile.is_open()) return;
-
-    std::string line;
-    while (std::getline(inFile, line)) {
-        pendingFiles.push_back(line);
-    }
-    inFile.close();
-}
-void savePendingFiles() {
-    std::ofstream outFile(".pending");
-    for (const auto& file : pendingFiles) {
-        outFile << file << "\n";
-    }
-    outFile.close();
 }
 
 int main() {
