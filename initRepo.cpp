@@ -190,20 +190,56 @@ void processCommand(const std::vector<std::string>& args) {
                 std::cout << "No se encontró el archivo de estado." << std::endl;
             }
 
-
+        }
     } else if (command == "commit" && args.size() >= 3) {
         std::string message;
         for (size_t i = 2; i < args.size(); ++i) {
             message += args[i] + " ";
         }
+        std::cout << "Realizando commit: " << args[2] << std::endl;
+        // Implementación para enviar cambios al servidor
+        std::vector<std::string> files;
+        loadPendingFiles();
+        for (const auto& file : pendingFiles) {
+            std::ifstream t(file);
+            std::stringstream buffer;
+            buffer << t.rdbuf();
+            files.push_back(buffer.str());
+        }
 
+        //ServerConector::getInstance()->commitChanges(repo_name, message, files);
+
+        // Clear pending files after commit
+        pendingFiles.clear();
+        savePendingFiles();
     } else if (command == "sync" && args.size() == 3) {
-
+        ServerConnector::getInstance()->syncFile(args[2]);
     } else if (command == "quit") {
-
+        std::cout << "Exiting program." << std::endl;
+        exit(0);
+    } else if (command == "rollback" && args.size() >= 3) {
+        ServerConnector::getInstance()->rollbackFile(args[2], args[3]);
     } else {
-
+        std::cout << "Invalid command or usage." << std::endl;
+        std::cout << "  guit help: Muestra esta lista de comandos.\n";
     }
+}
+void loadPendingFiles() {
+    std::ifstream inFile(".pending");
+    if (!inFile.is_open()) return;
+
+    std::string line;
+    while (std::getline(inFile, line)) {
+        pendingFiles.push_back(line);
+    }
+    inFile.close();
+}
+void savePendingFiles() {
+    std::ofstream outFile(".pending");
+    for (const auto& file : pendingFiles) {
+        outFile << file << "\n";
+    }
+    outFile.close();
 }
 
 int main() {
