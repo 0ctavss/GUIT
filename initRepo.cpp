@@ -4,7 +4,7 @@
 #include <curl/curl.h>
 #include <sstream>
 
-void resetFile(const std::string& filename) {
+void resetFile(const std::string& filename)  //Aqui filename es el nombre del archivo que se quiere resetear
     //Lee el archivo en el último commit
     std::ifstream commitFile(filename + ".commit");
     if (!commitFile.is_open()) {
@@ -79,7 +79,7 @@ void processCommand(const std::vector<std::string>& args) {
         createRepository(apiUrl, args[2]);
     } else if (command == "add") {
 
-    } else if (command == "help") {
+    } else if (command == "help" && args.size() >= 3) {
         std::cout << "Comandos disponibles en guit:\n";
         std::cout << "  guit init <name>: Inicializa un nuevo repositorio con el nombre especificado.\n";
         std::cout << "  guit help: Muestra esta lista de comandos.\n";
@@ -93,7 +93,7 @@ void processCommand(const std::vector<std::string>& args) {
         resetFile(args[2]);
 
     } else if (command == "status") {
-        if (args.size() == 2) {
+        if (args.size() >= 3) {
             std::cout << "Estado de los archivos según el commit anterior:" << std::endl;
             std::ifstream statusFile("status.txt"); // Archivo ficticio que contiene el estado de los archivos
             if (statusFile.is_open()) {
