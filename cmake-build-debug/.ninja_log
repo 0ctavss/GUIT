@@ -1,6 +1,12 @@
 # ninja log v6
-19	631	7400770379156900	CMakeFiles/untitled.dir/main.cpp.obj	799786c2d955669f
-6	294	7400790962395085	build.ninja	1e6c1d56fe365283
-1762	2117	7400730269156521	untitled.exe	6c2f8604cf40e100
+10	1382	7400809183881497	CMakeFiles/untitled.dir/main.cpp.obj	799786c2d955669f
+25	383	7400824673969286	build.ninja	1e6c1d56fe365283
+21	318	7400824169092783	untitled.exe	689e61a8ed58a93d
+38	1200	7400822612258177	CMakeFiles/untitled.dir/utils.obj	d7ab6bb30a36af84
 29	1515	7400770379250908	CMakeFiles/untitled.dir/client.cpp.obj	1ea1cad9126cb673
 24	1666	7400770379195328	CMakeFiles/untitled.dir/server.cpp.obj	7947226a0901536a
+31	1568	7400822612186663	CMakeFiles/untitled.dir/client.obj	e9e080df3c6d1cc
+18	1044	7400822612065473	CMakeFiles/untitled.dir/main.obj	8cf38c1b6235ecda
+24	1763	7400822612129845	CMakeFiles/untitled.dir/server.obj	92dd7ec5fa80c895
+45	1164	7400826359017053	CMakeFiles/untitled.dir/utils.obj	d7ab6bb30a36af84
+1166	1620	7400826370219708	untitled.exe	689e61a8ed58a93d

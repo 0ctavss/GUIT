@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: untitled
+# Project: Project
 # Configurations: Debug
 # =============================================================================
 
@@ -49,27 +49,31 @@ cmake_ninja_workdir = C$:/Users/camf/CLionProjects/untitled/cmake-build-debug/
 
 build cmake_object_order_depends_target_untitled: phony || CMakeFiles/untitled.dir
 
-build CMakeFiles/untitled.dir/main.cpp.obj: CXX_COMPILER__untitled_unscanned_Debug C$:/Users/camf/CLionProjects/untitled/main.cpp || cmake_object_order_depends_target_untitled
-  DEP_FILE = CMakeFiles\untitled.dir\main.cpp.obj.d
-  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+build CMakeFiles/untitled.dir/main.obj: CXX_COMPILER__untitled_unscanned_Debug C$:/Users/camf/CLionProjects/untitled/main.cpp || cmake_object_order_depends_target_untitled
+  DEP_FILE = CMakeFiles\untitled.dir\main.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I"C:/Program Files/OpenSSL-Win64/include"
   OBJECT_DIR = CMakeFiles\untitled.dir
   OBJECT_FILE_DIR = CMakeFiles\untitled.dir
 
-build CMakeFiles/untitled.dir/server.cpp.obj: CXX_COMPILER__untitled_unscanned_Debug C$:/Users/camf/CLionProjects/untitled/server.cpp || cmake_object_order_depends_target_untitled
-  DEP_FILE = CMakeFiles\untitled.dir\server.cpp.obj.d
-  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+build CMakeFiles/untitled.dir/server.obj: CXX_COMPILER__untitled_unscanned_Debug C$:/Users/camf/CLionProjects/untitled/server.cpp || cmake_object_order_depends_target_untitled
+  DEP_FILE = CMakeFiles\untitled.dir\server.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I"C:/Program Files/OpenSSL-Win64/include"
   OBJECT_DIR = CMakeFiles\untitled.dir
   OBJECT_FILE_DIR = CMakeFiles\untitled.dir
 
-build CMakeFiles/untitled.dir/client.cpp.obj: CXX_COMPILER__untitled_unscanned_Debug C$:/Users/camf/CLionProjects/untitled/client.cpp || cmake_object_order_depends_target_untitled
-  DEP_FILE = CMakeFiles\untitled.dir\client.cpp.obj.d
-  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+build CMakeFiles/untitled.dir/client.obj: CXX_COMPILER__untitled_unscanned_Debug C$:/Users/camf/CLionProjects/untitled/client.cpp || cmake_object_order_depends_target_untitled
+  DEP_FILE = CMakeFiles\untitled.dir\client.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I"C:/Program Files/OpenSSL-Win64/include"
   OBJECT_DIR = CMakeFiles\untitled.dir
   OBJECT_FILE_DIR = CMakeFiles\untitled.dir
 
-build CMakeFiles/untitled.dir/utils.cpp.obj: CXX_COMPILER__untitled_unscanned_Debug C$:/Users/camf/CLionProjects/untitled/utils.cpp || cmake_object_order_depends_target_untitled
-  DEP_FILE = CMakeFiles\untitled.dir\utils.cpp.obj.d
-  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+build CMakeFiles/untitled.dir/utils.obj: CXX_COMPILER__untitled_unscanned_Debug C$:/Users/camf/CLionProjects/untitled/utils.cpp || cmake_object_order_depends_target_untitled
+  DEP_FILE = CMakeFiles\untitled.dir\utils.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I"C:/Program Files/OpenSSL-Win64/include"
   OBJECT_DIR = CMakeFiles\untitled.dir
   OBJECT_FILE_DIR = CMakeFiles\untitled.dir
 
@@ -81,9 +85,10 @@ build CMakeFiles/untitled.dir/utils.cpp.obj: CXX_COMPILER__untitled_unscanned_De
 #############################################
 # Link the executable untitled.exe
 
-build untitled.exe: CXX_EXECUTABLE_LINKER__untitled_Debug CMakeFiles/untitled.dir/main.cpp.obj CMakeFiles/untitled.dir/server.cpp.obj CMakeFiles/untitled.dir/client.cpp.obj CMakeFiles/untitled.dir/utils.cpp.obj
+build untitled.exe: CXX_EXECUTABLE_LINKER__untitled_Debug CMakeFiles/untitled.dir/main.obj CMakeFiles/untitled.dir/server.obj CMakeFiles/untitled.dir/client.obj CMakeFiles/untitled.dir/utils.obj | C$:/Program$ Files/OpenSSL-Win64/lib/VC/x64/MD/libcrypto.lib C$:/Program$ Files/OpenSSL-Win64/lib/VC/x64/MD/libssl.lib
   FLAGS = -g
-  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = "C:/Program Files/OpenSSL-Win64/lib/VC/x64/MD/libcrypto.lib"  "C:/Program Files/OpenSSL-Win64/lib/VC/x64/MD/libssl.lib"  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_PATH = -LC:/PROGRA~1/OPENSS~1/lib/VC/x64/MD
   OBJECT_DIR = CMakeFiles\untitled.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -128,6 +133,11 @@ build untitled: phony untitled.exe
 # Folder: C:/Users/camf/CLionProjects/untitled/cmake-build-debug
 
 build all: phony untitled.exe
+
+# =============================================================================
+# Unknown Build Time Dependencies.
+# Tell Ninja that they may appear as side effects of build rules
+# otherwise ordered by order-only dependencies.
 
 # =============================================================================
 # Built-in targets
