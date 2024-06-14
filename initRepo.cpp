@@ -3,6 +3,26 @@
 #include <vector>
 #include <curl/curl.h>
 #include <sstream>
+
+void resetFile(const std::string& filename) {
+    //Lee el archivo en el último commit
+    std::ifstream commitFile(filename + ".commit");
+    if (!commitFile.is_open()) {
+        std::cout << "Error: No se encontró el archivo de commit para '" << filename << "'." << std::endl;
+        return;
+    }
+    std::stringstream commitContent;
+    commitContent << commitFile.rdbuf();
+    commitFile.close();
+
+    // Reescribe el archivo con el contenido del último commit
+    std::ofstream outFile(filename);
+    outFile << commitContent.str();
+    outFile.close();
+
+    std::cout << "Reset '" << filename << "' al estado del último commit exitosamente." << std::endl;
+}
+
 void createRepository(const std::string& apiUrl, const std::string& nombre) {
     CURL* curl;
     CURLcode res;
@@ -58,6 +78,34 @@ void processCommand(const std::vector<std::string>& args) {
         std::string apiUrl = "https://localhost:7065/api/repositories";
         createRepository(apiUrl, args[2]);
     } else if (command == "add") {
+
+    } else if (command == "help") {
+        std::cout << "Comandos disponibles en guit:\n";
+        std::cout << "  guit init <name>: Inicializa un nuevo repositorio con el nombre especificado.\n";
+        std::cout << "  guit help: Muestra esta lista de comandos.\n";
+        std::cout << "  guit add [-A] [name]: Agrega archivos al repositorio.\n";
+        std::cout << "  guit commit <mensaje>: Hace commit de los cambios con un mensaje.\n";
+        std::cout << "  guit status <file>: Muestra el estado de los archivos.\n";
+        std::cout << "  guit rollback <file> <commit>: Revierta un archivo a un commit específico.\n";
+        std::cout << "  guit reset <file>: Resetea los cambios locales de un archivo.\n";
+        std::cout << "  guit sync <file>: Sincroniza un archivo con el servidor.\n";
+    } else if (command == "reset") {
+        resetFile(args[2]);
+
+    } else if (command == "status") {
+        if (args.size() == 2) {
+            std::cout << "Estado de los archivos según el commit anterior:" << std::endl;
+            std::ifstream statusFile("status.txt"); // Archivo ficticio que contiene el estado de los archivos
+            if (statusFile.is_open()) {
+                std::string line;
+                while (std::getline(statusFile, line)) {
+                    std::cout << line << std::endl;
+                }
+                statusFile.close();
+            } else {
+                std::cout << "No se encontró el archivo de estado." << std::endl;
+            }
+
 
     } else if (command == "commit" && args.size() >= 3) {
         std::string message;
